@@ -1,0 +1,220 @@
+#chat-box {/*聊天框*/
+    background-color: rgb(44, 44, 44);
+    border-radius: 8px;
+    overflow-y: auto;
+    padding: 20px;
+    /* 移除原来的 margin-bottom */
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    width: auto;
+    /* 使用 flex-grow 占据所有可用空间 */
+    flex-grow: 1;
+    /* 确保高度自适应 */
+    height: auto;
+    /* 最小高度设置，避免过小 */
+    min-height: 0;
+    /* 添加滚动条透明样式 */
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.nav-box{/*导航栏*/
+    width: auto;
+    height: 38px;
+    background-color:rgb(44, 44, 44);
+    position: fixed;
+    top: 16px;
+    right: 15px;
+    left: 18px;
+    border-radius: 8px;
+}
+
+.wait-box {
+    /* 固定在右下角 */
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    /* 以高度为基准进行自适应 */
+    max-height: 25vh; /* 最大高度为视口高度的25% */
+    height: auto;
+    z-index: 1;
+}
+
+#wait {
+    /* 关键：以高度为基准，宽度自动计算以保持比例 */
+    height: 100%;
+    width: auto;
+    max-height: 25vh; /* 与容器保持一致的最大高度 */
+    display: block; /* 消除图片底部间隙 */
+}
+
+.wait {
+    /* 移除固定高度设置，由父容器控制 */
+    position: relative;
+    width: auto;
+    height: auto;
+    display: flex;
+}
+
+#wait_anmation {
+    /* 保持在图片内部居中 */
+    position: absolute;
+    top: 47%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    /* 动画大小相对于父容器（图片）的百分比 */
+    width: 75%;
+    height: auto;
+    z-index: 2;
+}
+
+#wait_anmation img {
+    /* 动画图片自适应容器大小 */
+    width: 100%;
+    height: auto;
+}
+ 
+/* 聊天容器样式 */
+#chat-container {
+    width: auto;
+    height: auto;
+    position: fixed;
+    bottom: 15px;
+    left: 18px;
+    /* 通过 JS 动态设置 right 值 */
+    top: 73px;
+    background-color: rgb(44, 44, 44);
+    /* 添加 flex 布局 */
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    /* 可添加内边距 */
+    padding: 0;
+}
+        
+/* 消息容器样式 - 包装每条消息 */
+.message-container {
+    display: flex; /* 使用弹性布局 */
+    width: 100%; /* 占据全部宽度 */
+}
+        
+/* 用户消息容器 - 右对齐 */
+.user-container {
+    justify-content: flex-end; /* 内容右对齐 */
+}
+        
+/* AI消息容器 - 左对齐 */
+.ai-container {
+    justify-content: flex-start; /* 内容左对齐 */
+}
+
+/* 消息气泡基本样式 */
+.message {
+    padding: 12px 18px; /* 内边距 */
+    border-radius: 20px; /* 圆角，创造气泡效果 */
+    max-width: 75%; /* 最大宽度限制，防止过长消息 */
+    animation: fadeIn 0.4s ease-out; /* 淡入动画 */
+    position: relative; /* 相对定位 */
+    word-wrap: break-word; /* 允许长单词换行 */
+    line-height: 1.5; /* 行高，提高可读性 */
+}
+        
+/* 用户消息气泡特定样式 */
+.user-message {
+    background: rgba(255, 255, 255, 0.12); /* 半透明背景 */
+    color: #cccccc; /* 文字颜色 */
+    text-align: right; /* 文字右对齐 */
+}
+        
+/* AI消息气泡特定样式 */
+.ai-message {
+    background: rgba(255, 255, 255, 0.12); /* 半透明背景 */
+    text-align: left; /* 文字左对齐 */
+    color: #cccccc; /* 文字颜色 */
+}
+        
+/* 消息淡入动画定义 */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; /* 开始状态：完全透明 */
+        transform: translateY(12px) scale(0.95); /* 向下偏移并稍微缩小 */
+    }
+    to { 
+        opacity: 1; /* 结束状态：完全不透明 */
+        transform: translateY(0) scale(1); /* 回到原始位置和大小 */
+    }
+}
+
+/* 输入区域样式 */
+#input-area {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    /* 添加顶部外边距分隔输入区域 */
+    margin-top: 10px;
+    /* 输入区域不伸缩，保持内容高度 */
+    flex-shrink: 0;
+}
+        
+/* 输入框样式 */
+#user-input {
+    height: 5px;
+    flex-grow: 1; /* 占据剩余空间 */
+    padding: 14px 20px; /* 内边距 */
+    border-color: black; /* 边框颜色 */
+    border-radius: 28px; /* 圆角 */
+    outline: none; /* 移除焦点轮廓 */
+    color: #000000; /* 文字颜色 */
+    font-size: 16px; /* 字体大小 */
+    transition: all 0.3s ease; /* 平滑过渡效果 */
+    background: rgba(236, 233, 233, 0.14);
+}
+
+/* 输入框获得焦点时的样式(如需框选以下代码ctrl+/，然后删除白字) 
+#user-input:focus {
+    box-shadow: 0 0 6px rgba(136, 136, 136, 0.5);  发光边框效果
+}
+*/
+
+/* 输入框占位符文字样式 */
+#user-input::placeholder {
+    color: rgb(53, 51, 51);
+}
+        
+/* 发送按钮样式 */
+#send-btn {
+    height: 35px;
+    padding: 14px 26px; /* 内边距 */
+    background-color: rgb(236, 233, 233, 0.14);
+    color: rgb(38, 36, 36); /* 文字颜色 */
+    border: none; /* 无边框 */
+    border-radius: 28px; /* 圆角 */
+    cursor: pointer; /* 鼠标指针变为手型 */
+    font-weight: bold; /* 粗体文字 */
+    transition: all 0.3s ease; /* 平滑过渡效果 */
+    text-align: center;
+    line-height: 10px;
+}
+        
+/* 发送按钮悬停状态样式(如需框选以下代码ctrl+/，然后删除白字)
+#send-btn:hover {
+    transform: translateY(-3px);  向上移动 
+    box-shadow: 0 6px 6px rgba(136, 136, 136, 0.5);  阴影 
+}
+ */
+/* 发送按钮按下状态样式 */
+#send-btn:active {
+    transform: translateY(-3px); /* 轻微向上移动 */
+}
+        
+/* 发送按钮禁用状态样式 */
+#send-btn:disabled {
+    background: rgba(255, 255, 255, 0.15); /* 灰色背景 */
+    color: rgba(255, 255, 255, 0.5); /* 半透明文字 */
+    transform: none; /* 无变换 */
+    box-shadow: none; /* 无阴影 */
+    cursor: not-allowed; /* 禁用指针 */
+}
+
